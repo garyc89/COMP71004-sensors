@@ -1,5 +1,7 @@
 
 /* Includes */
+Serial pc(USBTX, USBRX);
+
 #include "mbed.h"
 #include "HTS221Sensor.h"
 #include "LPS22HBSensor.h"
@@ -100,7 +102,30 @@ int main() {
     print_distance();
     printf("\r\n");
     
-    while(1) {
+    while(1)
+     {while(1) {
+    if(pc.readable()) {
+        char c = pc.getc();
+        switch(c) {
+            case 'a':
+                print_t_rh();
+                break;
+            case 'b':
+                print_mag();
+                break;
+            case 'c':
+                print_accel();
+                break;
+            case 'd':
+                print_gyro();
+                break;
+            case 'e':
+                print_distance();
+                break;
+        }
+    }
+}
+
         wait_us(500000);
     }
 }
